@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Welcome!</title>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    </head>
+    <body>
+        <div align="right">
+            <form th:action="@{/logout}" method="POST">
+                <p><input type="submit" value="Logout"/></p>
+            </form>
+        </div>
+        
+        <h1>You have successfully logged in!</h1>
+            
+        <ol>
+            <li th:each="note : ${notes}">
+                <b th:utext="${note.title}">title</b>
+                <p th:utext="${note.content}">content</p>
+                <form th:action="@{/notebook/{id}(id=${note.id})}" th:method="DELETE"><input type="submit" value="Remove note"/></form>
+            </li>   
+        </ol>
+
+        <div align="center">
+            <form th:action="@{/addNote}" method="POST">
+                <p><input placeholder="Title" type="text" name="title"/></p>
+                <p><textarea placeholder="Content" name="content"/></p>
+                <p><input type="submit" value="Submit"/></p>
+            </form>
+        </div>
+
+
+    </body>
+</html>

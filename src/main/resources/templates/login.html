@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Welcome!</title>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    </head>
+    <body>
+
+        <div align="center">    
+            <h1>Welcome!</h1>
+            <p>This is an online notebook. Log in below, or <a th:href="@{/register}">register here</a>. </p>
+            <p></p>
+            <p style="color:red" th:if="${param.error}">Invalid username and/or password.</p>
+            <p></p>
+            <form name="f" th:action="@{/login}" method="POST">
+                <p><input placeholder="Username" type="text" name="username" id="username"/></p>
+                <p><input placeholder="Password" type="password" name="password" id="password"/></p>
+                <p><input type="submit" value="Submit" /></p>
+            </form>
+        </div>
+    </body>
+</html>
