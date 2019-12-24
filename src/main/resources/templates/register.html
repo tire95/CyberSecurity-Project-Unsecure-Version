@@ -9,8 +9,9 @@
         
         <div align="center">
             <h1>Register a new account below.</h1>
+            <p style="color:red" th:text='${errorMsg}'></p>
             <form th:action="@{/register}" method="POST">
-                <p><input placeholder="Username" type="text" name="username"/></p>
+                <p><input placeholder="Username" type="text" name="username" autofocus="autofocus"/></p>
                 <p><input placeholder="Password" type="password" name="password"/></p>
                 <p><input type="submit" value="Create new account" /></p>
             </form>

@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public void init() {
         Account account = new Account();
         account.setUsername("Khorne");
-        account.setPassword("Milk for Khorne flakes!");
+        account.setPassword("MilkforKhorneflakes!");
         Account account2 = new Account();
         account2.setUsername("Leomund");
         account2.setPassword("Tiny Hut");

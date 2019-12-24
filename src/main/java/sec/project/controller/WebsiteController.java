@@ -62,7 +62,12 @@ public class WebsiteController {
     }
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestParam String username, @RequestParam String password) {
+    public String register(@RequestParam String username, @RequestParam String password, Model model) {
+        if (accountRepository.findByUsername(username) != null) {
+            String error = "Username already exists";
+            model.addAttribute("errorMsg", error);
+            return "register";
+        }
         Account account = new Account();
         account.setUsername(username);
         account.setPassword(password);
