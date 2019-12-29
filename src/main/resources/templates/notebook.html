@@ -18,7 +18,9 @@
             <li th:each="note : ${notes}">
                 <b th:utext="${note.title}">title</b>
                 <p th:utext="${note.content}">content</p>
-                <form th:action="@{/notebook/{id}(id=${note.id})}" th:method="DELETE"><input type="submit" value="Remove note"/></form>
+                <form th:action="@{/notebook/{id}(id=${note.id})}" th:method="DELETE">
+                    <input type="submit" value="Remove note"/>
+                </form>
             </li>   
         </ol>
 
