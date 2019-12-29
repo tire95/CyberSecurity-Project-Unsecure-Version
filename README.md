@@ -2,8 +2,9 @@
  
 The goal was to create a web application with at least 5 security flaws from [OWASP Top 10 list](https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf). The application was done with Java and Spring Framework.
 
+A version with all the security fixes implemented can be found [here](https://github.com/tire95/CyberSecurity-Project--Secure-Version).
 
-FLAW 1:
+**FLAW 1:**
 
 OWASP A3: Sensitive Data Exposure - Passwords are saved as plain text.
 
@@ -36,11 +37,11 @@ to
 	account.setPassword(passwordEncoder.encode(password));
 
 
-FLAW 2:
+**FLAW 2:**
 
 OWASP A2: Broken Authentication - Session ID is not invalidated after a period of inactivity.
 
-Solution: The easiest solution is to add `server.session.timeout=300` to `application.properties` - this makes the session expire after 5 minutes of inactivity - and `<meta http-equiv="refresh" content="300"></meta>` to the head of `notebook.html` - this makes `notebook.html` autorefresh after 5 minutes of inactivity, and since the session has expired at this point, the browser is directed back to the login page. Inactivity, in this case, means that the user has not committed any changes in the application, i.e. logging out, creating a new note, or deleting an existing note; in other words, simply writing something into a field will not restart the timer.
+Solution: The easiest solution is to add `server.session.timeout=300` to `application.properties` - this makes the session expire after 5 minutes of inactivity - and `<meta http-equiv="refresh" content="300"></meta>` to the head of `notebook.html` - this makes `notebook.html` autorefresh after 5 minutes of inactivity, and since the session has expired at this point, the browser is directed back to the login page. Inactivity, in this case, means that the user has not committed any changes to the application, i.e. logging out, creating a new note, or deleting an existing note; in other words, simply writing something into a field will not restart the timer.
 
 We can also add a timer to `notebook.html` that tells when the session will timeout; add `<b>Session will timeout in <span id='timer'></span></b>` to the pages's body, and add the following to the page's head:
 
@@ -72,7 +73,7 @@ We can also add a timer to `notebook.html` that tells when the session will time
 	</script>
 
 
-FLAW 3:
+**FLAW 3:**
 
 OWASP A10: Insufficient Logging & Monitoring: The application doesn't create any logs.
 
@@ -96,18 +97,18 @@ and they have the following format:
 	
 Which we can interpret as:
 
-%ip – the client IP which has sent the request, *0:0:0:0:0:0:0:1* in this case
-%i – the identity of the user
-%u – the user name determined by HTTP authentication
-%t – the time the request was received
-%r – the request line from the client, *GET /login HTTP/1.1* in this case
-%s – the status code sent from the server to the client, *200* in this case
-%b – the size of the response to the client, *1045* in this case
+- %ip – the client IP which has sent the request, *0:0:0:0:0:0:0:1* in this case
+- %i – the identity of the user
+- %u – the user name determined by HTTP authentication
+- %t – the time the request was received
+- %r – the request line from the client, *GET /login HTTP/1.1* in this case
+- %s – the status code sent from the server to the client, *200* in this case
+- %b – the size of the response to the client, *1045* in this case
 
 Since this request didn't have an authenticated user, %i and %u printed dashes.
 
 
-FLAW 4:
+**FLAW 4:**
 
 OWASP A2: Broken Authentication - The application permits short and well-known passwords.
 
@@ -199,14 +200,14 @@ Now the application won't allow common passwords, and the checking is case insen
 This solution, of course, is not perfect; for example, not allowing passwords that are concatenations of two or more common passwords is a good additional rule.
 
 
-FLAW 5:
+**FLAW 5:**
 
 OWASP A2: Broken Authentication - There is no control for concurrent sessions for a single user; a user can be signed in on two different computers, or on two different browsers on the same computer.
 
 Solution: Add `http.sessionManagement().maximumSessions(1);` to `configure` method in `SecurityConfiguration`; this way, when an already authenticated user signs in on another computer/browser, the previous session is invalidated.
 
 
-FLAW 6:
+**FLAW 6:**
 
 OWASP A7: Cross-Site Scripting (XSS) - Stored XSS attack is possible by injecting JavaScript to either note's title or content.
 
